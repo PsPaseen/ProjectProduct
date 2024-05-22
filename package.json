@@ -15,11 +15,14 @@
     "bootstrap": "^5.3.3",
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "fs": "^0.0.1-security",
     "mssql": "^10.0.2",
+    "path": "^0.12.7",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.2",
     "react-dom": "^18.2.0",
-    "styled-components": "^6.1.11"
+    "styled-components": "^6.1.11",
+    "url": "^0.11.3"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
