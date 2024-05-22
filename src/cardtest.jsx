@@ -1,10 +1,21 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import './card.css';
 
-function BasicExample() {
+import Swal from 'sweetalert2'
+
+function Card1() {
+
+  const showSwal = () => {
+    Swal.fire({
+      title: "อะไรวะ",
+      text: "อะไรวะ",
+      icon: "question"
+    });
+  }
   return (
-    <Card style={{ width: '18rem' }}>
+    <Card className="Cardtem ms-auto" style={{ width: '18rem' }} onClick={showSwal}>
       <Card.Img variant="top" src="holder.js/100px180" />
       <Card.Body>
         <Card.Title>Card Title</Card.Title>
@@ -14,8 +25,10 @@ function BasicExample() {
         </Card.Text>
         <Button variant="primary">Go somewhere</Button>
       </Card.Body>
+      
     </Card>
+    
   );
 }
 
-export default BasicExample;
+export default Card1;
