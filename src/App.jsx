@@ -6,11 +6,13 @@ import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import './App.css';
+import './card.css';
 import Card1 from './cardtest'; // Adjust the path if needed
 import Navbar1 from './Navbar2'; // Adjust the path if needed
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Swal from 'sweetalert2'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -18,6 +20,14 @@ function App() {
   const [count, setCount] = useState(0);
   const [persons, setPersons] = useState({}); // Initialize state as an empty array
   const [img, setImg] = useState(''); // Initialize state as an empty string for a single image URL
+
+  const showSwal = () => {
+    Swal.fire({
+      title: "อะไรวะ",
+      text: "อะไรวะ",
+      icon: "question"
+    });
+  }
 
 
   useEffect(() => {
@@ -44,8 +54,9 @@ function App() {
 
   return (
     <>
+    <Navbar1 />
       {persons.length > 0 && persons[0] ? (
-        <Card style={{ width: '18rem' }}>
+        <Card className="Cardtem" style={{ width: '18rem' } } onClick={showSwal}>
           <Card.Img variant="top" src={img} style={{ width: '100px', height: 'auto' }} />
           <Card.Body>
             <Card.Title><p>มหาเทพรำสัง {persons[1].Username}</p></Card.Title>
