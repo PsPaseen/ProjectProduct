@@ -29,9 +29,9 @@ function App() {
           <img src="${productImages[ProductID]}" style="max-width: 200px; margin-bottom: 20px;" /> <!-- Display product image -->
         </div>
         <div style="margin-top: 5%;">
-          <p><strong>Stock :</strong> ${stock}</p>
-          <p><strong>Detail :</strong> ${productDetail}</p>
-          <p><strong>Price :</strong> ${productPrice}</p>
+          <p><strong>จำนวนสินค้า :</strong> ${stock}</p>
+          <p><strong>รายละเอียดเพิ่มเติมของสินค้า :</strong> ${productDetail}</p>
+          <p><strong>ราคา :</strong> ${productPrice}</p>
         </div>
       `,
     });
@@ -89,7 +89,7 @@ function App() {
               <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4">
                 <Card className="Cardtem">
                   {productImages[productItem.ProductID] && (
-                    <Card.Img variant="top" src={`${productImages[productItem.ProductID]}`} style={{ width: '100px', height: 'auto', marginLeft: 'auto', marginRight: 'auto' }} />
+                    <Card.Img variant="top" src={`${productImages[productItem.ProductID]}`} style={{ width: '150px', height: '150px', marginLeft: 'auto', marginRight: 'auto' }} />
                   )}
                   <Card.Body>
                     <Card.Title><p>{productItem.Productname}</p></Card.Title>
