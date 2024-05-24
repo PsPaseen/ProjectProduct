@@ -1,20 +1,17 @@
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Navbar1 from './Navbar2';
 import React, { useState, useEffect, useContext  } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import defaultimage from './assets/ROV.png';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import './AddProduct.css';
-// import AuthContext from './AuthContext';
 
 const AddProduct = () => {
     const navigate = useNavigate();
     // const { auth } = useContext(AuthContext);
 
     const goBack = () => {
-        navigate('/'); // Navigate back to the "/" page
+        navigate('/');
     };
     const [formData, setFormData] = useState({
                 Productname: '',
@@ -100,7 +97,6 @@ const AddProduct = () => {
                 
                 <div className="add-product-container">
                     <div className="backtohomepage" >
-                        {/* <FontAwesomeIcon icon={faArrowLeft} /> */}
                         <button type="button" onClick={goBack}>Back</button>
                     </div>
                     <h2>Add Product</h2>
@@ -126,7 +122,7 @@ const AddProduct = () => {
 
                             <div className='add-product-form'>
                                 <label>
-                                    Product Name:
+                                    Productname:
                                     <input
                                         type="text"
                                         name="Productname"
@@ -136,7 +132,7 @@ const AddProduct = () => {
                                     />
                                 </label>
                                 <label>
-                                    Price:
+                                Productprice:
                                     <input
                                         type="number"
                                         name="Productprice"
@@ -146,7 +142,7 @@ const AddProduct = () => {
                                     />
                                 </label>
                                 <label>
-                                    Unit in Stock:
+                                    Stock:
                                     <input
                                         type="number"
                                         name="Stock"
@@ -158,7 +154,7 @@ const AddProduct = () => {
                             </div >
                             <div className='add-product-form2'>
                                 <label>
-                                    Description:
+                                Productdetail:
                                     <textarea
                                         name="Productdetail"
                                         value={formData.Productdetail}
@@ -167,9 +163,11 @@ const AddProduct = () => {
                                     ></textarea>
                                 </label>
 
-                                {isSubmitting ? (
-                                    <button type="submit" disabled={true}>Loading...</button>
-                                ) : (
+                                {isSubmitting ? 
+                                (
+                                    <button type="submit" disabled={true}>ประมวลผล</button>
+                                ) : 
+                                (
                                     <button type="submit">Submit</button>
                                 )
                                 }
