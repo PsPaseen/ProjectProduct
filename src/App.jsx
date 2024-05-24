@@ -25,13 +25,18 @@ function App() {
     Swal.fire({
       title: productName,
       html: `
-        <img src="${productImages[ProductID]}" style="max-width: 100%;" /> <!-- Display product image -->
-        <p><strong>Stock:</strong> ${stock}</p>
-        <p><strong>Detail:</strong> ${productDetail}</p>
-        <p><strong>Price:</strong> ${productPrice}</p>
+        <div style="text-align: center;">
+          <img src="${productImages[ProductID]}" style="max-width: 200px; margin-bottom: 20px;" /> <!-- Display product image -->
+        </div>
+        <div style="margin-top: 5%;">
+          <p><strong>Stock :</strong> ${stock}</p>
+          <p><strong>Detail :</strong> ${productDetail}</p>
+          <p><strong>Price :</strong> ${productPrice}</p>
+        </div>
       `,
     });
   }
+  
   
 
 
@@ -94,7 +99,6 @@ function App() {
                     <Button variant="primary" onClick={() => showSwalDetail(productItem.Productname, productItem.Stock, productItem.Productdetail, productItem.Productprice, productItem.ProductID)}>รายละเอียดเพิ่มเติม</Button>
                   </Card.Body>
                 </Card>
-
               </Col>
             ))
           ) : (
