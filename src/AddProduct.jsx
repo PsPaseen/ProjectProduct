@@ -129,8 +129,8 @@ const AddProduct = () => {
                                     Product Name:
                                     <input
                                         type="text"
-                                        name="productname"
-                                        value={formData.productName}
+                                        name="Productname"
+                                        value={formData.Productname}
                                         onChange={handleChange}
                                         required
                                     />
@@ -140,7 +140,7 @@ const AddProduct = () => {
                                     <input
                                         type="number"
                                         name="Productprice"
-                                        value={formData.price}
+                                        value={formData.Productprice}
                                         onChange={handleChange}
                                         required
                                     />
@@ -150,7 +150,7 @@ const AddProduct = () => {
                                     <input
                                         type="number"
                                         name="Stock"
-                                        value={formData.stock}
+                                        value={formData.Stock}
                                         onChange={handleChange}
                                         required
                                     />
@@ -159,7 +159,7 @@ const AddProduct = () => {
                                     Description:
                                     <textarea
                                         name="Productdetail"
-                                        value={formData.description}
+                                        value={formData.Productdetail}
                                         onChange={handleChange}
                                         required
                                     ></textarea>
