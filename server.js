@@ -99,11 +99,11 @@ app.post('/login', async (req, res) => {
       return res.status(400).send({ message: 'Invalid username or password.' });
     }
 
-    const token = jwt.sign({ userId: user.UserID, username: user.Username }, JWT_SECRET, { expiresIn: JWT_EXPIRATION });
+    const token = jwt.sign({ userID: user.UserID, username: user.Username }, JWT_SECRET, { expiresIn: JWT_EXPIRATION });
 
     // Set the token as a cookie or send it in the response body
     res.cookie('token', token, { httpOnly: true });
-    res.send({ message: 'Login successful!', username: user.Username, token }); // ส่งชื่อผู้ใช้และ token กลับไปยัง client
+    res.send({ message: 'Login successful!', userID: user.UserID , username: user.Username, token }); // ส่งชื่อผู้ใช้และ token กลับไปยัง client
   } catch (error) {
     console.error('Error logging in user:', error.message);
     res.status(500).send({ message: 'Internal server error. Failed to log in.' });
