@@ -74,19 +74,16 @@ function App() {
 
     <>
       <Navbar1 />
-      <Container>
+      <Container style={{ paddingTop: '80px' }}>
         <Row>
           {persons.length > 0 ? persons.map((person, index) => (
             <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4">
               <Card className="Cardtem" onClick={showSwal}>
                 <Card.Img variant="top" src={img} style={{ width: '100px', height: 'auto' , marginLeft: 'auto', marginRight: 'auto'}} />
                 <Card.Body>
-                  <Card.Title><p>มหาเทพรำสัง {person.Username}</p></Card.Title>
+                  <Card.Title><p>{person.Username}</p></Card.Title>
                   <Card.Text style={{}}> 
                     ราคา 55 บาท
-                  </Card.Text>
-                  <Card.Text style={{visibility: 'hidden'}}> 
-                    Some quick example text to build on the card title and make 
                   </Card.Text>
                   <Button variant="primary">รายละเอียดเพิ่มเติม</Button>
                 </Card.Body>

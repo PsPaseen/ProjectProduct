@@ -1,0 +1,107 @@
+.add-product-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.backtohomepage {
+    margin-bottom: 20px;
+}
+
+.back-button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.back-button:hover {
+    background-color: #444;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sub-add-product-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.add-product-img {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.add-product-img label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.img-container {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.img-container img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.img-container button {
+    margin-top: 10px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.img-container button:hover {
+    background-color: #d32f2f;
+}
+
+.add-product-form {
+    flex: 2;
+}
+
+.add-product-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-product-form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.add-product-form input,
+.add-product-form select,
+.add-product-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.add-product-form textarea {
+    resize: vertical;
+}
+
+.add-product-form button {
+    margin-top: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.add-product-form button:hover {
+    background-color: #0056b3;
+}

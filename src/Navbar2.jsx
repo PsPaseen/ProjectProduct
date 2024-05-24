@@ -25,7 +25,7 @@ function Navbar1() {
             </NavDropdown>
           </Nav>
           <Nav className="additem ms-auto">
-            <Nav.Link href="#home">เพิ่มข้อมูลสินค้า</Nav.Link>
+            <Nav.Link href="/AddProduct">เพิ่มข้อมูลสินค้า</Nav.Link>
           </Nav>
           <Nav className="login ms-auto">
             <Nav.Link href="#home">เข้าสู่ระบบ</Nav.Link>
