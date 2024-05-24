@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import ReactDOM from 'react-dom';
 import Login from './Login'; // Import your Login component
+import Register from './Register'; // Import your Register component
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -18,6 +19,18 @@ const handleLoginClick = () => {
     MySwal.fire({
         title: 'Login',
         html: loginContainer,
+        showCancelButton: true,
+        showConfirmButton: false,
+    });
+};
+
+const handleRegisterClick = () => {
+    const registerContainer = document.createElement('div');
+    ReactDOM.render(<Register />, registerContainer);
+
+    MySwal.fire({
+        title: 'Register',
+        html: registerContainer,
         showCancelButton: true,
         showConfirmButton: false,
     });
@@ -46,6 +59,11 @@ const Navbar1 = () => {
                     <Nav className="login ms-auto">
                         <Nav.Link onClick={handleLoginClick}>
                             เข้าสู่ระบบ
+                        </Nav.Link>
+                    </Nav>
+                    <Nav className="register ms-auto">
+                        <Nav.Link onClick={handleRegisterClick}>
+                            สมัครสมาชิก
                         </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>

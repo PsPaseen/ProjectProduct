@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import axios from 'axios';
+
+const MySwal = withReactContent(Swal);
 
 const Login = () => {
     const [form, setForm] = useState({
@@ -7,46 +11,57 @@ const Login = () => {
         password: ''
     });
 
-    const onUpdateField = (e) => {
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value
-        });
-    };
-
-    useEffect(() => {
-        // Display the SweetAlert dialog when the component mounts
-        showLoginAlert();
-    }, []); // Empty dependency array ensures this effect runs only once, on component mount
-
     const showLoginAlert = () => {
-        // Display SweetAlert dialog with inputs for username and password
-        Swal.fire({
+        MySwal.fire({
             title: 'Login',
             html: `
-                <form id="loginForm">
-                    <input type="text" name="username" class="swal2-input" placeholder="Username" value="${form.username}">
-                    <input type="password" name="password" class="swal2-input" placeholder="Password" value="${form.password}">
-                </form>
+                <input id="swal-input1" class="swal2-input" placeholder="Username">
+                <input id="swal-input2" type="password" class="swal2-input" placeholder="Password">
             `,
             showCancelButton: true,
             confirmButtonText: 'Login',
             preConfirm: () => {
-                const username = Swal.getPopup().querySelector('[name=username]').value;
-                const password = Swal.getPopup().querySelector('[name=password]').value;
-                // Here you can add your login logic, for example, make an API call to authenticate the user
-                // For demonstration, let's just display the entered credentials
-                Swal.fire({
-                    title: 'Entered Credentials',
-                    html: `
-                        <p><strong>Username:</strong> ${username}</p>
-                        <p><strong>Password:</strong> ${password}</p>
-                    `,
-                 
-                });
+                const username = document.getElementById('swal-input1').value;
+                const password = document.getElementById('swal-input2').value;
+                if (!username || !password) {
+                    Swal.showValidationMessage('Please enter both username and password');
+                    return false;
+                }
+                return { username, password };
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const { username, password } = result.value;
+                handleLogin(username, password);
             }
         });
     };
+
+    const handleLogin = async (username, password) => {
+        try {
+            const response = await axios.post('http://localhost:80/login', { username, password });
+            const token = response.data.token;
+
+            // Store the token in localStorage
+            localStorage.setItem('token', token);
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Login Successful',
+                text: 'You are now logged in!',
+            });
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Login Failed',
+                text: error.response ? error.response.data.message : 'Login failed. Please try again.',
+            });
+        }
+    };
+
+    useEffect(() => {
+        showLoginAlert();
+    }, []); // Empty dependency array ensures this effect runs only once, on component mount
 
     return null; // Since the SweetAlert dialog will be displayed immediately, no need to render anything in the component
 }
