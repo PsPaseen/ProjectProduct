@@ -2,8 +2,11 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import './card.css';
-
+import Container from 'react-bootstrap/Container';
 import Swal from 'sweetalert2'
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Card1() {
 
@@ -15,7 +18,7 @@ function Card1() {
     });
   }
   return (
-    <Card className="Cardtem ms-auto" style={{ width: '18rem' }} onClick={showSwal}>
+    <Card className="Cardtem" style={{ width: '18rem' }} onClick={showSwal}>
       <Card.Img variant="top" src="holder.js/100px180" />
       <Card.Body>
         <Card.Title>Card Title</Card.Title>

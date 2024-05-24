@@ -53,24 +53,52 @@ function App() {
   }, []);
 
   return (
+    // <>
+    // <Navbar1 />
+    //   {persons.length > 0 && persons[0]  ? (
+    //     <Card className="Cardtem" style={{ width: '18rem' } } onClick={showSwal}>
+    //       <Card.Img variant="top" src={img} style={{ width: '100px', height: 'auto' }} />
+    //       <Card.Body>
+    //         <Card.Title><p>มหาเทพรำสัง {persons[1].Username}</p></Card.Title>
+    //         <Card.Text>
+    //           Some quick example text to build on the card title and make up the
+    //           bulk of the card's content.
+    //         </Card.Text>
+    //         <Button variant="primary">Go somewhere</Button>
+    //       </Card.Body>
+    //     </Card>
+    //   ) : (
+    //     <p>No user data found</p>
+    //   )}
+    // </>
+
     <>
-    <Navbar1 />
-      {persons.length > 0 && persons[0] ? (
-        <Card className="Cardtem" style={{ width: '18rem' } } onClick={showSwal}>
-          <Card.Img variant="top" src={img} style={{ width: '100px', height: 'auto' }} />
-          <Card.Body>
-            <Card.Title><p>มหาเทพรำสัง {persons[1].Username}</p></Card.Title>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </Card.Text>
-            <Button variant="primary">Go somewhere</Button>
-          </Card.Body>
-        </Card>
-      ) : (
-        <p>No user data found</p>
-      )}
+      <Navbar1 />
+      <Container>
+        <Row>
+          {persons.length > 0 ? persons.map((person, index) => (
+            <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4">
+              <Card className="Cardtem" onClick={showSwal}>
+                <Card.Img variant="top" src={img} style={{ width: '100px', height: 'auto' , marginLeft: 'auto', marginRight: 'auto'}} />
+                <Card.Body>
+                  <Card.Title><p>มหาเทพรำสัง {person.Username}</p></Card.Title>
+                  <Card.Text style={{}}> 
+                    ราคา 55 บาท
+                  </Card.Text>
+                  <Card.Text style={{visibility: 'hidden'}}> 
+                    Some quick example text to build on the card title and make 
+                  </Card.Text>
+                  <Button variant="primary">รายละเอียดเพิ่มเติม</Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          )) : (
+            <p>No user data found</p>
+          )}
+        </Row>
+      </Container>
     </>
+
   );
 }
 
