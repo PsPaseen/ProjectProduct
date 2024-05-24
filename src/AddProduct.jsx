@@ -107,7 +107,7 @@ const AddProduct = () => {
                     <div className='sub-add-product-container'>
                         <form onSubmit={handleSubmit}>
                             <div className='add-product-img'>
-                                <label>
+                                <label className='Chooseimg'>
                                     Picture:
                                     <input
                                         type="file"
@@ -119,7 +119,7 @@ const AddProduct = () => {
                                 </label>
                                 <div className='img-container'>
                                     <img src={formData.picture ? URL.createObjectURL(formData.picture) : defaultimage} alt="Product Preview" />
-                                    {formData.picture && (<button type="button" onClick={handleRemovePhoto}>Remove Photo</button>)}
+                                    {formData.picture && (<button type="button" className='remove-photo-button' onClick={handleRemovePhoto}>Remove Photo</button>)}
                                 </div>
                             </div>
 
@@ -155,6 +155,8 @@ const AddProduct = () => {
                                         required
                                     />
                                 </label>
+                            </div >
+                            <div className='add-product-form2'>
                                 <label>
                                     Description:
                                     <textarea
