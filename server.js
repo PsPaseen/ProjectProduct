@@ -8,6 +8,8 @@ import multer from 'multer';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import crypto from 'crypto';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken' ;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -16,6 +18,9 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static('public'));
+
+const JWT_SECRET = 'your_jwt_secret'; // Replace with your own secret
+const JWT_EXPIRATION = '1h'; // Token expiration time
 
 const config = {
   server: 'database-1.cfk6quekolwy.us-east-1.rds.amazonaws.com',
@@ -37,6 +42,75 @@ async function testConnection() {
   }
 }
 testConnection();
+
+app.post('/register', async (req, res) => {
+  const { Username, Password } = req.body;
+
+  if (!Username || !Password ) {
+    return res.status(400).send('Username and password are required.');
+  }
+
+  try {
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(Password, 10);
+
+    // Connect to the database
+    const pool = await sql.connect(config);
+
+    // Insert user data using parameterized query
+    await pool.request()
+      .input('Username', sql.NVarChar, Username)
+      .input('hashedPassword', sql.NVarChar, hashedPassword)
+      .query(`
+        INSERT INTO "User" (Username, Password)
+        VALUES (@username, @hashedPassword)
+      `);
+
+    res.send('User registered successfully!');
+  } catch (error) {
+    console.error('Error registering user:', error.message);
+    res.status(500).send('Internal server error. Failed to register user.');
+  } finally {
+    sql.close();
+  }
+});
+
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).send({ message: 'Username and password are required.' });
+  }
+
+  try {
+    const pool = await sql.connect(config);
+    const result = await pool.request()
+      .input('username', sql.NVarChar, username)
+      .query('SELECT * FROM "User" WHERE Username = @username');
+
+    if (result.recordset.length === 0) {
+      return res.status(400).send({ message: 'Invalid username or password.' });
+    }
+
+    const user = result.recordset[0];
+    const passwordMatch = await bcrypt.compare(password, user.Password);
+
+    if (!passwordMatch) {
+      return res.status(400).send({ message: 'Invalid username or password.' });
+    }
+
+    const token = jwt.sign({ userId: user.UserID, username: user.Username }, JWT_SECRET, { expiresIn: JWT_EXPIRATION });
+
+    // Set the token as a cookie or send it in the response body
+    res.cookie('token', token, { httpOnly: true });
+    res.send({ message: 'Login successful!', username: user.Username, token }); // ส่งชื่อผู้ใช้และ token กลับไปยัง client
+  } catch (error) {
+    console.error('Error logging in user:', error.message);
+    res.status(500).send({ message: 'Internal server error. Failed to log in.' });
+  } finally {
+    sql.close();
+  }
+});
 
 app.get('/product', (req, res) => {
   sql.connect(config)
