@@ -10,6 +10,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
+import './App';
 
 const MySwal = withReactContent(Swal);
 
@@ -36,7 +37,7 @@ const handleLogoutClick = () => {
         timerProgressBar: true,
         showConfirmButton: false,
         didClose: () => {
-            window.location.reload();
+            window.location.href = './App'; // เปลี่ยนเส้นทางไปยังหน้าหลัก
         }
     });
 };
