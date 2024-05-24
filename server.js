@@ -27,36 +27,50 @@ const config = {
 };
 
 async function testConnection() {
-    try {
-      await sql.connect(config);
-      console.log('Connected to the database successfully!');
-    } catch (error) {
-      console.error('Error connecting to the database:', error.message);
-    } finally {
-      await sql.close();
-    }
+  try {
+    await sql.connect(config);
+    console.log('Connected to the database successfully!');
+  } catch (error) {
+    console.error('Error connecting to the database:', error.message);
+  } finally {
+    await sql.close();
   }
-  testConnection();
+}
+testConnection();
 
-  app.get('/test',(req,res)=>{
+app.get('/product', (req, res) => {
+  sql.connect(config)
+    .then(pool => {
+      return pool.request().query('SELECT * FROM RProduct');
+    })
+    .then(result => {
+      res.json(result.recordset);
+    })
+    .catch(err => {
+      console.error('Error:', err);
+      res.status(500).json({ error: 'Internal Server Error' });
+    });
+});
 
-    sql.connect(config) 
-    .then(pool=>{
-        return pool.request()
+app.get('/test', (req, res) => {
+
+  sql.connect(config)
+    .then(pool => {
+      return pool.request()
         .query('SELECT * FROM "User" ');
 
     })
-    .then(result =>{
-        res.json(result.recordset) ;
+    .then(result => {
+      res.json(result.recordset);
     })
-  }
+}
 )
 
 const storage = multer.diskStorage({
-  destination:(req,file ,cb)=>{
-    cb(null,'upload/');
+  destination: (req, file, cb) => {
+    cb(null, 'upload/');
   },
-  filename:(req,file,cb)=>{
+  filename: (req, file, cb) => {
     const timestamp = Date.now();
     const randomValue = Math.random().toString();
     const hash = crypto.createHash('sha256').update(timestamp + randomValue).digest('hex');
@@ -67,7 +81,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-app.post('/uploadproduct',upload.single('picture'),async(req,res)=>{
+app.post('/uploadproduct', upload.single('picture'), async (req, res) => {
 
   const { Productname, Stock, Productdetail, Productprice } = req.body;
 
@@ -76,16 +90,16 @@ app.post('/uploadproduct',upload.single('picture'),async(req,res)=>{
   console.log('Received form data:', { Productname, Stock, Productdetail, Productprice });
   console.log('Received picture:', Pathpic);
 
-  try{
+  try {
     const pool = await sql.connect(config);
 
     const inputdata = await pool.request()
-    .input('Productname' ,sql.NVarChar, Productname)
-    .input('Stock' , sql.Int , Stock)
-    .input('Productdetail' ,sql.NVarChar , Productdetail)
-    .input('Productprice' ,sql.Money , Productprice)
-    .input('Pathpic' , sql.NVarChar , Pathpic )
-    .query(`
+      .input('Productname', sql.NVarChar, Productname)
+      .input('Stock', sql.Int, Stock)
+      .input('Productdetail', sql.NVarChar, Productdetail)
+      .input('Productprice', sql.Money, Productprice)
+      .input('Pathpic', sql.NVarChar, Pathpic)
+      .query(`
     INSERT INTO RProduct (ProductName,Stock,Productdetail,Productprice,Pathpic)
     VALUES (@Productname,@Stock,@Productdetail,@Productprice,@Pathpic)
     `)
@@ -95,27 +109,27 @@ app.post('/uploadproduct',upload.single('picture'),async(req,res)=>{
     await pool.close();
 
     res.send('Form data received and inserted into the database successfully!');
-  }catch(error){
+  } catch (error) {
     console.error('Error inserting data into the database:', error.message);
   }
 })
 
-app.get('/image', (req, res) => {
-  const filename = "test01.jpg";
+app.get('/image/:filename', (req, res) => {
+  const filename = req.params.filename;
   const filePath = path.join(__dirname, './upload/', filename);
 
   fs.readFile(filePath, { encoding: 'base64' }, (err, data) => {
-      if (err) {
-          const filePath = path.join(__dirname, './uploads/default.png');
-          fs.readFile(filePath, { encoding: 'base64' }, (err, data) => {
-              const base64Data = `data:image/jpeg;base64,${data}`;
-              res.send(base64Data);
-          });
-      } else {
-          //res.send(data);
-          const base64Data = `data:image/jpeg;base64,${data}`;
-          res.send(base64Data);
-      }
+    if (err) {
+      const filePath = path.join(__dirname, './upload/default.png');
+      fs.readFile(filePath, { encoding: 'base64' }, (err, data) => {
+        const base64Data = `data:image/jpeg;base64,${data}`;
+        res.send(base64Data);
+      });
+    } else {
+      //res.send(data);
+      const base64Data = `data:image/jpeg;base64,${data}`;
+      res.send(base64Data);
+    }
   });
 });
 

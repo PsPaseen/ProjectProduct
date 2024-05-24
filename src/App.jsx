@@ -18,8 +18,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [count, setCount] = useState(0);
-  const [persons, setPersons] = useState({}); // Initialize state as an empty array
-  const [img, setImg] = useState(''); // Initialize state as an empty string for a single image URL
+  const [product, setProduct] = useState({}); // Initialize state as an empty array
+  const [productImages, setProductImages] = useState({}); // Initialize state as an empty string for a single image URL
 
   const showSwalDetail = () => {
     Swal.fire({
@@ -28,80 +28,70 @@ function App() {
       icon: "question"
     });
   }
-  
+
   const showSwalDownloading = () => {
     Swal.fire({
       title: "Downloading Data...",
       icon: "info",
-      showConfirmButton: false, 
-    allowOutsideClick: false
+      showConfirmButton: false,
+      allowOutsideClick: false
     });
   }
 
   useEffect(() => {
     showSwalDownloading();
-    axios.get('http://localhost:80/test')
+    axios.get('http://localhost:80/product')
       .then(res => {
-        setPersons(res.data);
-        console.log(res.data);
+        setProduct(res.data);
+        res.data.forEach(productItem => {
+          // console.log(productItem);
+          if (productItem.Pathpic) {
+            const fileName = productItem.Pathpic.split("\\").pop();
+            axios.get(`http://localhost:80/image/${fileName}`)
+              .then((res) => {
+                setProductImages(prevImages => ({
+                  ...prevImages,
+                  [productItem.ProductID]: res.data // Store the fetched image data
+                }));
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
+        });
         Swal.close();
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
-       Swal.close(); 
-      });
-  }, []);
-
-  useEffect(() => {
-    axios.get('http://localhost:80/image')
-      .then(res => {
-        setImg(res.data);
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
+        Swal.close();
       });
   }, []);
 
   return (
-    // <>
-    // <Navbar1 />
-    //   {persons.length > 0 && persons[0]  ? (
-    //     <Card className="Cardtem" style={{ width: '18rem' } } onClick={showSwal}>
-    //       <Card.Img variant="top" src={img} style={{ width: '100px', height: 'auto' }} />
-    //       <Card.Body>
-    //         <Card.Title><p>มหาเทพรำสัง {persons[1].Username}</p></Card.Title>
-    //         <Card.Text>
-    //           Some quick example text to build on the card title and make up the
-    //           bulk of the card's content.
-    //         </Card.Text>
-    //         <Button variant="primary">Go somewhere</Button>
-    //       </Card.Body>
-    //     </Card>
-    //   ) : (
-    //     <p>No user data found</p>
-    //   )}
-    // </>
 
     <>
       <Navbar1 />
       <Container style={{ paddingTop: '80px' }}>
         <Row>
-          {persons.length > 0 ? persons.map((person, index) => (
-            <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4">
-              <Card className="Cardtem" onClick={showSwalDetail}>
-                <Card.Img variant="top" src={img} style={{ width: '100px', height: 'auto' , marginLeft: 'auto', marginRight: 'auto'}} />
-                <Card.Body>
-                  <Card.Title><p>{person.Username}</p></Card.Title>
-                  <Card.Text style={{}}> 
-                    ราคา 55 บาท
-                  </Card.Text>
-                  <Button variant="primary">รายละเอียดเพิ่มเติม</Button>
-                </Card.Body>
-              </Card>
-            </Col>
-          )) : (
-            <p>No user data found</p>
+          {product.length > 0 ? (
+            product.map((productItem, index) => (
+              <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4">
+                <Card className="Cardtem" onClick={showSwalDetail}>
+                  {productImages[productItem.ProductID] && (
+                    <Card.Img variant="top" src={`${productImages[productItem.ProductID]}`} style={{ width: '100px', height: 'auto', marginLeft: 'auto', marginRight: 'auto' }} />
+                  )}
+                  <Card.Body>
+                    <Card.Title><p>{productItem.Productname}</p></Card.Title>
+                    <Card.Text>
+                      ราคา {productItem.Price} บาท
+                    </Card.Text>
+                    <Button variant="primary">รายละเอียดเพิ่มเติม</Button>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))
+          ) : (
+            <p>No product data found</p>
           )}
         </Row>
       </Container>
