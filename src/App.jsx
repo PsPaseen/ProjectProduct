@@ -21,13 +21,19 @@ function App() {
   const [product, setProduct] = useState({}); // Initialize state as an empty array
   const [productImages, setProductImages] = useState({}); // Initialize state as an empty string for a single image URL
 
-  const showSwalDetail = () => {
+  const showSwalDetail = (productName, stock, productDetail, productPrice, ProductID) => {
     Swal.fire({
-      title: "อะไรวะ",
-      text: "อะไรวะ",
-      icon: "question"
+      title: productName,
+      html: `
+        <img src="${productImages[ProductID]}" style="max-width: 100%;" /> <!-- Display product image -->
+        <p><strong>Stock:</strong> ${stock}</p>
+        <p><strong>Detail:</strong> ${productDetail}</p>
+        <p><strong>Price:</strong> ${productPrice}</p>
+      `,
     });
   }
+  
+
 
   const showSwalDownloading = () => {
     Swal.fire({
@@ -76,7 +82,7 @@ function App() {
           {product.length > 0 ? (
             product.map((productItem, index) => (
               <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4">
-                <Card className="Cardtem" onClick={showSwalDetail}>
+                <Card className="Cardtem">
                   {productImages[productItem.ProductID] && (
                     <Card.Img variant="top" src={`${productImages[productItem.ProductID]}`} style={{ width: '100px', height: 'auto', marginLeft: 'auto', marginRight: 'auto' }} />
                   )}
@@ -85,9 +91,10 @@ function App() {
                     <Card.Text>
                       ราคา {productItem.Price} บาท
                     </Card.Text>
-                    <Button variant="primary">รายละเอียดเพิ่มเติม</Button>
+                    <Button variant="primary" onClick={() => showSwalDetail(productItem.Productname, productItem.Stock, productItem.Productdetail, productItem.Productprice, productItem.ProductID)}>รายละเอียดเพิ่มเติม</Button>
                   </Card.Body>
                 </Card>
+
               </Col>
             ))
           ) : (
