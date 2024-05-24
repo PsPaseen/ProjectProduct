@@ -89,7 +89,7 @@ function App() {
                   <Card.Body>
                     <Card.Title><p>{productItem.Productname}</p></Card.Title>
                     <Card.Text>
-                      ราคา {productItem.Price} บาท
+                      ราคา {productItem.Productprice} บาท
                     </Card.Text>
                     <Button variant="primary" onClick={() => showSwalDetail(productItem.Productname, productItem.Stock, productItem.Productdetail, productItem.Productprice, productItem.ProductID)}>รายละเอียดเพิ่มเติม</Button>
                   </Card.Body>
