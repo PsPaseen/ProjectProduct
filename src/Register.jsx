@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import './Register.css';
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -50,11 +51,12 @@ const Register = () => {
 
   return (
     <div>
-      <h2>Register</h2>
+      <h2>สมัครสมาชิก</h2>
       <form onSubmit={handleRegister}>
+      <div className='Registermenu'>
         <div>
           <label>Username:</label>
-          <input
+          <input className='Username'
             type="text"
             name="username"
             value={form.username}
@@ -64,7 +66,7 @@ const Register = () => {
         </div>
         <div>
           <label>Password:</label>
-          <input
+          <input className='Password'
             type="password"
             name="password"
             value={form.password}
@@ -74,7 +76,7 @@ const Register = () => {
         </div>
         <div>
           <label>Confirm Password:</label>
-          <input
+          <input className='CPassword'
             type="password"
             name="confirmPassword"
             value={form.confirmPassword}
@@ -82,7 +84,8 @@ const Register = () => {
             required
           />
         </div>
-        <button type="submit">Register</button>
+        <button type="submit" className='Registerbtn'>Register</button>
+        </div>
       </form>
     </div>
   );
