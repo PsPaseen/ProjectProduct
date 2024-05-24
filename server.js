@@ -87,7 +87,7 @@ app.post('/uploadproduct',upload.single('picture'),async(req,res)=>{
     .input('Pathpic' , sql.NVarChar , Pathpic )
     .query(`
     INSERT INTO RProduct (ProductName,Stock,Productdetail,Productprice,Pathpic)
-    VALUES (@Productname,@Stock,@Productdetail,@Productdetail,@Pathpic)
+    VALUES (@Productname,@Stock,@Productdetail,@Productprice,@Pathpic)
     `)
 
     console.log('Rows affected:', inputdata.rowsAffected);
