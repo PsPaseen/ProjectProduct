@@ -21,23 +21,34 @@ function App() {
   const [persons, setPersons] = useState({}); // Initialize state as an empty array
   const [img, setImg] = useState(''); // Initialize state as an empty string for a single image URL
 
-  const showSwal = () => {
+  const showSwalDetail = () => {
     Swal.fire({
       title: "อะไรวะ",
       text: "อะไรวะ",
       icon: "question"
     });
   }
-
+  
+  const showSwalDownloading = () => {
+    Swal.fire({
+      title: "Downloading Data...",
+      icon: "info",
+      showConfirmButton: false, 
+    allowOutsideClick: false
+    });
+  }
 
   useEffect(() => {
+    showSwalDownloading();
     axios.get('http://localhost:80/test')
       .then(res => {
         setPersons(res.data);
         console.log(res.data);
+        Swal.close();
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
+       Swal.close(); 
       });
   }, []);
 
@@ -78,7 +89,7 @@ function App() {
         <Row>
           {persons.length > 0 ? persons.map((person, index) => (
             <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4">
-              <Card className="Cardtem" onClick={showSwal}>
+              <Card className="Cardtem" onClick={showSwalDetail}>
                 <Card.Img variant="top" src={img} style={{ width: '100px', height: 'auto' , marginLeft: 'auto', marginRight: 'auto'}} />
                 <Card.Body>
                   <Card.Title><p>{person.Username}</p></Card.Title>
