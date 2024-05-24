@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import axios from 'axios';
+import './App';
 
 const MySwal = withReactContent(Swal);
 
@@ -71,7 +72,7 @@ const Login = () => {
                 timerProgressBar: true,
                 showConfirmButton: false,
                 didClose: () => {
-                    window.location.reload();
+                    window.location.href = './App';
                 }
             });           
         } catch (error) {
