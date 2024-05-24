@@ -1,7 +1,20 @@
+/* AddProduct.css */
+.add-product-page {
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .add-product-container {
     padding: 20px;
     max-width: 1200px;
-    margin: auto;
+    width: 100%;
+    margin: 20px auto;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
 
 .backtohomepage {
@@ -9,64 +22,86 @@
 }
 
 .back-button {
-    background-color: #000;
+    background-color: #007bff;
     color: #fff;
     border: none;
     padding: 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .back-button:hover {
-    background-color: #444;
+    background-color: #0056b3;
 }
 
 h2 {
     text-align: center;
     margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
 }
 
-.sub-add-product-container {
+.form-section {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    gap: 20px;
 }
 
-.add-product-img {
+.image-section, .form-section {
     flex: 1;
-    margin-right: 20px;
+    background-color: #fafafa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.add-product-img label {
-    display: block;
+.image-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.img-label {
     margin-bottom: 10px;
+    font-weight: bold;
 }
 
 .img-container {
     margin-top: 10px;
     text-align: center;
+    position: relative;
 }
 
 .img-container img {
     max-width: 100%;
     height: auto;
     object-fit: cover;
+    border-radius: 8px;
 }
 
-.img-container button {
-    margin-top: 10px;
+.remove-photo-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
     background-color: #f44336;
     color: white;
     border: none;
     padding: 5px 10px;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.img-container button:hover {
+.remove-photo-button:hover {
     background-color: #d32f2f;
 }
 
-.add-product-form {
+.form-section {
     flex: 2;
+    display: flex;
+    flex-direction: column;
 }
 
 .add-product-form form {
@@ -74,34 +109,44 @@ h2 {
     flex-direction: column;
 }
 
-.add-product-form label {
-    display: block;
-    margin-bottom: 10px;
+.form-label {
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #555;
 }
 
 .add-product-form input,
 .add-product-form select,
 .add-product-form textarea {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .add-product-form textarea {
     resize: vertical;
+    height: 100px;
 }
 
-.add-product-form button {
-    margin-top: 20px;
+.submit-button {
     background-color: #007bff;
-    color: white;
+    color: #fff;
     border: none;
     padding: 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
 }
 
-.add-product-form button:hover {
+.submit-button.loading {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.submit-button:hover {
     background-color: #0056b3;
 }
