@@ -42,7 +42,7 @@ function App() {
 
   const showSwalDownloading = () => {
     Swal.fire({
-      title: "Downloading Data...",
+      title: "Loading Data...",
       icon: "info",
       showConfirmButton: false,
       allowOutsideClick: false

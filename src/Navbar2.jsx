@@ -9,6 +9,7 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
 
 const MySwal = withReactContent(Swal);
 
@@ -21,6 +22,22 @@ const handleLoginClick = () => {
         html: loginContainer,
         showCancelButton: true,
         showConfirmButton: false,
+    });
+};
+
+const handleLogoutClick = () => {
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userID');
+    Swal.fire({
+        icon: 'success',
+        title: 'Logout Successful',
+        text: 'You are now logout',
+        timer: 1500,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        didClose: () => {
+            window.location.reload();
+        }
     });
 };
 
@@ -53,18 +70,26 @@ const Navbar1 = () => {
                             <NavDropdown.Item href="#action/3.4">ส่งรายวิชา CS369</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
-                    <Nav className="additem ms-auto">
-                        <Nav.Link href="/AddProduct">เพิ่มข้อมูลสินค้า</Nav.Link>
+
+                    <Nav className="register ms-auto">
+                        {localStorage.getItem('userID') == undefined ?
+                            <Nav.Link onClick={handleRegisterClick}>
+                                สมัครสมาชิก
+                            </Nav.Link>
+                            :
+                            <Nav.Link href="/AddProduct">เพิ่มข้อมูลสินค้า</Nav.Link>
+                        }
                     </Nav>
                     <Nav className="login ms-auto">
-                        <Nav.Link onClick={handleLoginClick}>
+                        {localStorage.getItem('userID') == undefined ?
+                        <Button type="submit" onClick={handleLoginClick}>
                             เข้าสู่ระบบ
-                        </Nav.Link>
-                    </Nav>
-                    <Nav className="register ms-auto">
-                        <Nav.Link onClick={handleRegisterClick}>
-                            สมัครสมาชิก
-                        </Nav.Link>
+                        </Button> :
+                        <>
+                            <Nav.Link>ยินดีต้อนรับ, {localStorage.getItem('userName')}</Nav.Link>
+                            <Button type="submit" onClick={handleLogoutClick}> ออกจากระบบ </Button>
+                        </>
+                        }
                     </Nav>
                 </Navbar.Collapse>
             </Container>
