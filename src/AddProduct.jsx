@@ -8,7 +8,7 @@ import './AddProduct.css';
 
 const AddProduct = () => {
     const navigate = useNavigate();
-    // const { auth } = useContext(AuthContext);
+
 
     const goBack = () => {
         navigate('/');

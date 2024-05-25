@@ -10,6 +10,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
+import './App';
 
 const MySwal = withReactContent(Swal);
 
@@ -22,6 +23,7 @@ const handleLoginClick = () => {
         html: loginContainer,
         showCancelButton: true,
         showConfirmButton: false,
+        
     });
 };
 
@@ -36,7 +38,7 @@ const handleLogoutClick = () => {
         timerProgressBar: true,
         showConfirmButton: false,
         didClose: () => {
-            window.location.reload();
+            window.location.href = './App';
         }
     });
 };
@@ -70,6 +72,8 @@ const Navbar1 = () => {
                             <NavDropdown.Item href="#action/3.4">ส่งรายวิชา CS369</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
+
+                    <Nav.Link href="/">ยาวววววววววววววววววววววววววววววววววววววววววววววววววววววว</Nav.Link>
 
                     <Nav className="register ms-auto">
                         {localStorage.getItem('userID') == undefined ?
