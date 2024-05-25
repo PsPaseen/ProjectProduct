@@ -38,7 +38,7 @@ const handleLogoutClick = () => {
         timerProgressBar: true,
         showConfirmButton: false,
         didClose: () => {
-            window.location.href = './App';
+            window.location.href = './App'; // เปลี่ยนเส้นทางไปยังหน้าหลัก
         }
     });
 };
