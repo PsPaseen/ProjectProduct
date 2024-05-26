@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import api from './api';
+
 
 const ProtectedData = () => {
     const [data, setData] = useState(null);
@@ -9,7 +11,7 @@ const ProtectedData = () => {
         const fetchProtectedData = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get('http://localhost:80/protected', {
+                const response = await api.get('/protected', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }

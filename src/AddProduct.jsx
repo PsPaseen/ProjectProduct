@@ -5,6 +5,8 @@ import defaultimage from './assets/ROV.png';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import './AddProduct.css';
+import api from './api';
+
 
 const AddProduct = () => {
     const navigate = useNavigate();
@@ -57,7 +59,7 @@ const AddProduct = () => {
             Object.keys(formData).forEach((key) => {
                 formDataToSend.append(key, formData[key]);
             });
-            await axios.post('http://localhost:80/uploadproduct', formDataToSend);
+            await api.post('/uploadproduct', formDataToSend);
             console.log('Product added successfully!');
 
             // Show success message using SweetAlert

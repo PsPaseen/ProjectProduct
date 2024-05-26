@@ -14,6 +14,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Swal from 'sweetalert2'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import api from './api';
+
 
 
 function App() {
@@ -51,14 +53,14 @@ function App() {
 
   useEffect(() => {
     showSwalDownloading();
-    axios.get('http://localhost:80/product')
+    api.get('/product')
       .then(res => {
         setProduct(res.data);
         res.data.forEach(productItem => {
           // console.log(productItem);
           if (productItem.Pathpic) {
             const fileName = productItem.Pathpic.split("\\").pop();
-            axios.get(`http://localhost:80/image/${fileName}`)
+            api.get(`/image/${fileName}`)
               .then((res) => {
                 setProductImages(prevImages => ({
                   ...prevImages,
