@@ -10,7 +10,7 @@ import api from './api';
 
 const AddProduct = () => {
     const navigate = useNavigate();
-    // const { auth } = useContext(AuthContext);
+
 
     const goBack = () => {
         navigate('/');
