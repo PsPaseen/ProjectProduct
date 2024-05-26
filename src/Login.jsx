@@ -4,11 +4,14 @@ import withReactContent from 'sweetalert2-react-content';
 import axios from 'axios';
 import './App';
 import api from './api';
+import { useNavigate } from 'react-router-dom';
+
 
 
 const MySwal = withReactContent(Swal);
 
 const Login = () => {
+
     const [form, setForm] = useState({
         username: '',
         password: ''
@@ -55,6 +58,9 @@ const Login = () => {
             if (result.isConfirmed) {
                 const { username, password } = result.value;
                 handleLogin(username, password);
+            }else if (result.dismiss === Swal.DismissReason.cancel) {
+                // จัดการเหตุการณ์เมื่อคลิกที่ปุ่ม "Cancel"
+                navigate('/'); // กลับไปยังหน้าหลัก
             }
         });
     };
@@ -74,8 +80,7 @@ const Login = () => {
                 timerProgressBar: true,
                 showConfirmButton: false,
                 didClose: () => {
-                    window.location.href = './App';
-                }
+                    window.location.href = './';                }
             });           
         } catch (error) {
             Swal.fire({
@@ -84,7 +89,8 @@ const Login = () => {
                 text: error.response ? error.response.data.message : 'Login failed. Please try again.',
                 timer: 1500,
                 timerProgressBar: true,
-                showConfirmButton: false
+                showConfirmButton: false,
+                
             });
         }
     };

@@ -12,37 +12,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import api from './api';
 import './App';
+import { useNavigate } from 'react-router-dom';
+
 
 const MySwal = withReactContent(Swal);
 
-const handleLoginClick = () => {
-    const loginContainer = document.createElement('div');
-    ReactDOM.render(<Login />, loginContainer);
-
-    MySwal.fire({
-        title: 'Login',
-        html: loginContainer,
-        showCancelButton: true,
-        showConfirmButton: false,
-        
-    });
-};
-
-const handleLogoutClick = () => {
-    localStorage.removeItem('userName');
-    localStorage.removeItem('userID');
-    Swal.fire({
-        icon: 'success',
-        title: 'Logout Successful',
-        text: 'You are now logout',
-        timer: 1500,
-        timerProgressBar: true,
-        showConfirmButton: false,
-        didClose: () => {
-            window.location.href = './App'; // เปลี่ยนเส้นทางไปยังหน้าหลัก
-        }
-    });
-};
 
 const handleRegisterClick = () => {
     const registerContainer = document.createElement('div');
@@ -56,7 +30,41 @@ const handleRegisterClick = () => {
     });
 };
 
+
 const Navbar1 = () => {
+    const navigate = useNavigate();
+    const handleAddproduct = () => {
+        navigate('/Addproduct');
+    };
+    
+    const handleLoginClick = () => {
+        // navigate('/login');
+        const loginContainer = document.createElement('div');
+        ReactDOM.render(<Login />, loginContainer);
+    
+        MySwal.fire({
+            title: 'Login',
+            html: loginContainer,
+            showCancelButton: true,
+            showConfirmButton: false,
+    
+        });
+    };
+    const handleLogoutClick = () => {
+        localStorage.removeItem('userName');
+        localStorage.removeItem('userID');
+        Swal.fire({
+            icon: 'success',
+            title: 'Logout Successful',
+            text: 'You are now logout',
+            timer: 1500,
+            timerProgressBar: true,
+            showConfirmButton: false,
+            didClose: () => {
+                navigate('/App');
+            }
+        });
+    };
     return (
         <Navbar expand="lg" bg="dark" variant="dark" className="fixed-top">
             <Container>
@@ -82,18 +90,18 @@ const Navbar1 = () => {
                                 สมัครสมาชิก
                             </Nav.Link>
                             :
-                            <Nav.Link href="/AddProduct">เพิ่มข้อมูลสินค้า</Nav.Link>
+                            <Nav.Link onClick={() => handleAddproduct()}>เพิ่มข้อมูลสินค้า</Nav.Link>
                         }
                     </Nav>
                     <Nav className="login ms-auto">
                         {localStorage.getItem('userID') == undefined ?
-                        <Button type="submit" onClick={handleLoginClick}>
-                            เข้าสู่ระบบ
-                        </Button> :
-                        <>
-                            <Nav.Link>ยินดีต้อนรับ, {localStorage.getItem('userName')}</Nav.Link>
-                            <Button type="submit" onClick={handleLogoutClick}> ออกจากระบบ </Button>
-                        </>
+                            <Button type="submit" onClick={handleLoginClick}>
+                                เข้าสู่ระบบ
+                            </Button> :
+                            <>
+                                <Nav.Link>ยินดีต้อนรับ, {localStorage.getItem('userName')}</Nav.Link>
+                                <Button type="submit" onClick={handleLogoutClick}> ออกจากระบบ </Button>
+                            </>
                         }
                     </Nav>
                 </Navbar.Collapse>

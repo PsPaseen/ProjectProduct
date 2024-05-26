@@ -59,7 +59,12 @@ function App() {
         res.data.forEach(productItem => {
           // console.log(productItem);
           if (productItem.Pathpic) {
-            const fileName = productItem.Pathpic.split("\\").pop();
+            let fileName ;
+            if (productItem.Pathpic.includes('\\')) {
+              fileName = productItem.Pathpic.split("\\").pop();
+            } else {
+              fileName = productItem.Pathpic.split('/').pop();
+            }
             api.get(`/image/${fileName}`)
               .then((res) => {
                 setProductImages(prevImages => ({
