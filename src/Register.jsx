@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import api from './api';
 import './Register.css';
 
 const Register = () => {
@@ -30,7 +31,7 @@ const Register = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:80/register', {
+      const response = await api.post('/register', {
         Username: form.username,
         Password: form.password,
       });

@@ -3,6 +3,8 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import axios from 'axios';
 import './App';
+import api from './api';
+
 
 const MySwal = withReactContent(Swal);
 
@@ -59,7 +61,7 @@ const Login = () => {
 
     const handleLogin = async (username, password) => {
         try {
-            const response = await axios.post('http://localhost:80/login', { username, password });
+            const response = await api.post('/login', { username, password });
             // Store the token in localStorage
             localStorage.setItem('userID', response.data.userID);
             localStorage.setItem('userName', response.data.username);
