@@ -10,6 +10,9 @@ import { dirname } from 'path';
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken' ;
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -23,10 +26,10 @@ const JWT_SECRET = 'your_jwt_secret'; // Replace with your own secret
 const JWT_EXPIRATION = '1h'; // Token expiration time
 
 const config = {
-  server: 'database-1.cfk6quekolwy.us-east-1.rds.amazonaws.com',
-  database: 'cs367',
-  user: 'admin',
-  password: '123456789',
+  server: process.env.DB_SERVER,
+  database: process.env.DB_DATABASE,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
   encrypt: false,
   trustServerCertificate: false,
 };
