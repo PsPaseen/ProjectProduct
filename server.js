@@ -118,7 +118,7 @@ app.post('/login', async (req, res) => {
 app.get('/product', (req, res) => {
   sql.connect(config)
     .then(pool => {
-      return pool.request().query('SELECT * FROM RProduct');
+      return pool.request().query('SELECT * FROM RProduct ORDER BY ProductID DESC');
     })
     .then(result => {
       res.json(result.recordset);
